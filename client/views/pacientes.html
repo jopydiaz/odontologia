@@ -1,0 +1,149 @@
+<h3 class="page-header">Pacientes</h3>
+<div id="alta-pacientes" style="display: none" class="panel panel-default">
+	<div class="panel-heading">Alta de pacientes</div>
+	<div class="panel-body">
+		<form class="form-horizontal">
+		  <fieldset>
+				<div class="form-group">
+					<label for="" class="col-lg-2 control-label">Nombre</label>
+		      <div class="col-lg-6">
+		        <input type="text" class="form-control" id="" placeholder="Nombre y apellido" ng-model="paciente.nombre">
+		      </div>
+					<label for="" class="col-lg-1 control-label" style="text-align: left; width: 6%">DNI</label>
+					<div class="col-lg-3">
+						<input type="text" class="form-control" placeholder="N&uacute;mero de DNI" ng-model="paciente.dni">
+					</div>
+				</div>
+				<div class="form-group">
+		      <label class="col-lg-2 control-label">Sexo</label>
+		      <div class="col-lg-10">
+		        <div class="radio">
+		          <label>
+		            <input type="radio" name="sexoRadio" value="F" checked="" ng-model="paciente.sexo">
+		            Femenino
+		          </label>
+							<label>
+		            <input type="radio" name="sexoRadio" value="M" ng-model="paciente.sexo">
+		            Masculino
+		          </label>
+		        </div>
+		      </div>
+		    </div>
+				<div class="form-group">
+					<label for="" class="col-lg-2 control-label">Fecha de nacimiento</label>
+		      <div class="col-lg-4">
+		        <input type="date" class="form-control" id="" ng-model="paciente.fechaNac" ng-change="calculoEdad(paciente.fechaNac)">
+		      </div>
+					<label for="" class="col-lg-2 control-label" style="text-align: left; width: 11%">Edad <span class="small">(años)</span></label>
+		      <div class="col-lg-4">
+		        <input type="text" class="form-control" id="" placeholder="" ng-model="paciente.edad" ng-disabled="true">
+		      </div>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-lg-2 control-label">Obra social</label>
+		      <div class="col-lg-4">
+		        <input type="text" class="form-control" id="" placeholder="Obra social" ng-model="paciente.obraSocial">
+		      </div>
+
+					<label for="" class="col-lg-2 control-label" style="text-align: left; width: 11%">Nro. Afiliado</label>
+		      <div class="col-lg-4">
+		        <input type="number" class="form-control" id="" placeholder="Nro. Afiliado" ng-model="paciente.nroAfiliado">
+		      </div>
+
+				</div>
+				<div class="form-group">
+					<label for="" class="col-lg-2 control-label">Direcci&oacute;n</label>
+		      <div class="col-lg-10">
+		        <input type="text" class="form-control" id="" placeholder="Direcci&oacute;n" ng-model="paciente.direccion">
+		      </div>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-lg-2 control-label">Tel&eacute;fono de contacto</label>
+		      <div class="col-lg-10">
+		        <input type="text" class="form-control" id="" placeholder="Tel&eacute;fono de contacto" ng-model="paciente.telefono">
+		      </div>
+				</div>
+				<div class="form-group">
+		      <label class="col-lg-2 control-label">Observaciones</label>
+		      <div class="col-lg-10">
+		        <textarea class="form-control" rows="3" ng-model="paciente.observaciones"></textarea>
+		      </div>
+		    </div>
+				<div class="form-group">
+		      <div class="col-lg-10 col-lg-offset-2">
+		        <button type="reset" class="btn btn-default" ng-click="cancelAltaPaciente()">Cancelar</button>
+		        <button type="submit" class="btn btn-primary" ng-click="guardarPaciente()">Guardar</button>
+		      </div>
+		    </div>
+		  </fieldset>
+		</form>
+	</div>
+</div>
+
+
+<div id="tabla-pacientes" class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-3">
+				<button type="submit" class="btn btn-primary" ng-click="nuevoPaciente()">Nuevo paciente</button><br>
+			</div>
+			<div class="col-sm-3 col-sm-offset-6">
+				<input type="text" class="form-control" ng-model="filtroPacientes" placeholder="Filtrar pacientes...">
+			</div>
+		</div>
+
+		<table class="table table-striped table-hover" style="margin-top: 20px">
+		  <thead>
+		    <tr>
+		      <th>Nombre</th>
+		      <th>Sexo</th>
+		      <th>Fecha nacimiento</th>
+					<th>Obra social</th>
+					<th>Direccion</th>
+					<th>Telefono</th>
+					<th>Observaciones</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr ng-repeat="p in pacientes | filter: filtroPacientes" ng-right-click="rightClick($event, p)">
+		      <td>{{ p.nombre }}</td>
+		      <td><span ng-if="p.sexo === 'M'"><i class="fa fa-mars" aria-hidden="true"></i></span><span ng-if="p.sexo === 'F'"><i class="fa fa-venus" aria-hidden="true"></i></span></td>
+		      <td>{{ p.fechaNac | date: 'dd/MM/yyyy' }}</td>
+		      <td>{{ p.obraSocial }}</td>
+		      <td>{{ p.direccion }}</td>
+		      <td>{{ p.telefono }}</td>
+					<td><a ng-if="p.observaciones" href="" data-toggle="tooltip" data-placement="top" title="{{ p.observaciones }}" tooltip><i class="fa fa-exclamation" aria-hidden="true"></i></a></td>
+		      <!-- <td>{{ p.doc.observaciones }}</td> -->
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+</div>
+
+<ul id="context-menu" class="dropdown-menu" role="menu" style="display: none">
+  <li><a href="#/paciente/{{ pacienteRightClicked._id }}">Detalle</a></li>
+	<li><a href="#/ficha-medica">Ver ficha medica</a></li>
+	<li><a href="">Modificar informacion</a></li>
+	<li><a href="" ng-click="eliminarPaciente()">Eliminar</a></li>
+</ul>
+
+
+<div id="modal-eliminar-paciente" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Eliminaci&oacute;n de paciente</h4>
+      </div>
+      <div class="modal-body">
+        <p>Esta seguro que desea eliminar el siguiente paciente?</p>
+				<pre>Nombre: {{ pacienteRightClicked.nombre }}, DNI: {{ pacienteRightClicked.dni }}, fecha de nacimiento: {{ pacienteRightClicked.fechaNac | date: 'dd/MM/yyyy' }}</pre>
+				<p class="small text-muted">Tenga en cuenta que esta acci&oacute;n no puede ser revertida.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" ng-click="confirmEliminarPaciente(pacienteRightClicked._id)">Eliminar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

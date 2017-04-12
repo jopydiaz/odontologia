@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html style="background-color: #EFF2F5">
+  <head>
+    <meta charset="UTF-8">
+    <title>Odontologia</title>
+		<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap-paper.css">
+		<link rel="stylesheet" href="./bower_components/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="./bower_components/mdi/css/materialdesignicons.min.css">
+		<link rel="stylesheet" href="assets/styles/style.css">
+  </head>
+  <body ng-app="app">
+    <!-- All of the Node.js APIs are available in this renderer process. -->
+		<div class="col-sm-2" style="background-color: #263648; min-height: 1000px; padding: 0">
+			<ul class="list-group" style="margin-top: 50px; position: fixed; width: inherit">
+			  <li class="list-group-item">
+			    <a href="#/">Home</a>
+			  </li>
+			  <li class="list-group-item">
+			    <i class="mdi mdi-human mdi-24px"></i><a href="#/pacientes">Pacientes</a>
+			  </li>
+			  <li class="list-group-item">
+			    <span class="badge">1</span>
+			    <i class="mdi mdi-calendar-clock mdi-24px"></i><a href="#/paciente/:id">Turnos</a>
+			  </li>
+			</ul>
+
+			<div id="alertPlaceholder"></div>
+		</div>
+		<div ng-view="" class="col-sm-10"></div>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('../renderer.js')
+		window.$ = window.jQuery = require('./bower_components/jquery/dist/jquery.js');
+  </script>
+	<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="./bower_components/angular/angular.min.js"></script>
+	<script src="./bower_components/angular-route/angular-route.min.js"></script>
+	<script src="./bower_components/fabric.js/dist/fabric.js"></script>
+	<script src="./bower_components/jquery.svg.js/jquery.svg.min.js"></script>
+	<script src="./bower_components/pouchdb/dist/pouchdb.min.js"></script>
+	<script src="./bower_components/angular-pouchdb/angular-pouchdb.min.js"></script>
+
+	<script src="./javascript/app.js"></script>
+
+</html>

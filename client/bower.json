@@ -1,0 +1,27 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/electron/electron-quick-start",
+  "authors": [
+    "Nicolas Acquaviva <nicoacq@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.6",
+    "angular-route": "^1.5.8",
+    "fabric.js": "fabric#^1.6.3",
+    "pouchdb": "^5.4.5",
+    "angular-pouchdb": "^4.3.0",
+    "font-awesome": "fontawesome#^4.6.3",
+    "mdi": "^1.6.50"
+  }
+}
